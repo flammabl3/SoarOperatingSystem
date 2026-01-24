@@ -27,31 +27,35 @@
  * @param accelZ The acceleration in the Z axis relative to the sensor
  */
 struct IMUData {
-  uint32_t accelX;
-  uint32_t accelY;
-  uint32_t accelZ;
+	uint32_t gyroX;
+	uint32_t gyroY;
+	uint32_t gyroZ;
+
+	uint32_t accelX;
+	uint32_t accelY;
+	uint32_t accelZ;
 };
 
 /**
  * @param Temperature. Can be any where from -2147483648 to 2147483647
  */
 struct ThermocoupleData {
-  int32_t temperature;
+	int32_t temperature;
 };
 
-struct GPSData{
+struct GPSData {
 	uint32_t gps;
 };
 
-struct BaroData{
+struct BaroData {
 	uint32_t baro;
 };
 
-struct FilterData{
+struct FilterData {
 	uint32_t filter;
 };
 
-struct MagData{
+struct MagData {
 	uint32_t mag;
 };
 
