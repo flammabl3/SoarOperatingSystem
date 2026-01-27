@@ -175,10 +175,26 @@ class DataBroker {
    * @brief Returns the correct Publisher object for a template type
    */
   template <typename T>
-  static constexpr auto getPublisher(void) {
+  static constexpr Publisher<T>* getPublisher(void) {
     if constexpr (matchType<T, IMUData>()) {
       return &IMU_Data_publisher;
-    } else {
+    }
+    else if constexpr(matchType<T, BaroData>()){
+    	return &Baro_Data_publisher;
+    }
+    else if constexpr(matchType<T, MagData1>()){
+    	return &Mag_Data_publisher;
+    }
+    else if constexpr(matchType<T, FilterData>()){
+    	return &Filter_Data_publisher;
+    }
+    else if constexpr(matchType<T, GPSData>()){
+    	return &GPS_Data_publisher;
+    }
+    else if constexpr(matchType<T, MagData2>()){
+        	return &Mag_Data_publisher2;
+        }
+    else {
       SOAR_ASSERT(false, "This publisher type does not exist, you must create it");
       return (Publisher<T>*)nullptr;
     }
@@ -186,6 +202,11 @@ class DataBroker {
 
   // List of Publishers
   inline static Publisher<IMUData> IMU_Data_publisher{DataBrokerMessageTypes::IMU_DATA};
+  inline static Publisher<MagData1> Mag_Data_publisher{DataBrokerMessageTypes::MAG_DATA};
+  inline static Publisher<BaroData> Baro_Data_publisher{DataBrokerMessageTypes::BARO_DATA};
+  inline static Publisher<FilterData> Filter_Data_publisher{DataBrokerMessageTypes::FILTER_DATA};
+  inline static Publisher<GPSData> GPS_Data_publisher{DataBrokerMessageTypes::GPS_DATA};
+  inline static Publisher<MagData2> Mag_Data_publisher2{DataBrokerMessageTypes::MAG_DATA2};
 
 };
 /************************************

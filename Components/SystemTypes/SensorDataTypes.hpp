@@ -26,17 +26,33 @@
  * @param accelY The acceleration in the Y axis relative to the sensor
  * @param accelZ The acceleration in the Z axis relative to the sensor
  */
-struct IMUData {
-  uint32_t accelX;
-  uint32_t accelY;
-  uint32_t accelZ;
+struct ACCEL_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
 };
 
-/**
- * @param Temperature. Can be any where from -2147483648 to 2147483647
- */
-struct ThermocoupleData {
-  int32_t temperature;
+struct GYRO_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+};
+
+struct IMUData {
+	ACCEL_t accel;
+	GYRO_t gyro;
+	int16_t temp;
+};
+
+struct MAG_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+};
+
+struct MagData2 {
+	MAG_t mag;
+	int16_t temp;
 };
 
 struct GPSData{
@@ -44,15 +60,21 @@ struct GPSData{
 };
 
 struct BaroData{
-	uint32_t baro;
+	int16_t temp;
+	uint32_t pressure;
 };
 
 struct FilterData{
 	uint32_t filter;
 };
 
-struct MagData{
-	uint32_t mag;
+struct MagData1 {
+    std::uint32_t rawX;
+    std::uint32_t rawY;
+    std::uint32_t rawZ;
+    float scaledX;
+    float scaledY;
+    float scaledZ;
 };
 
 #endif /* SENSORDATATYPES_HPP_ */
