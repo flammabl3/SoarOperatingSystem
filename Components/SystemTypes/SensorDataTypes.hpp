@@ -52,11 +52,22 @@ struct BaroData {
 };
 
 struct FilterData {
-	uint32_t filter;
+	uint32_t alt;
+	uint32_t velo;
+	uint32_t acc;
+
+	// predictions can be published later
+	/*
+	uint32_t alt_predict;
+	uint32_t velo_predict;
+	uint32_t acc_predict;
+	*/
 };
 
 struct MagData {
-	uint32_t mag;
+	uint32_t magX;
+	uint32_t magY;
+	uint32_t magZ;
 };
 
 #endif /* SENSORDATATYPES_HPP_ */
