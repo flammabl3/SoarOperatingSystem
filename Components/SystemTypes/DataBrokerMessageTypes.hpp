@@ -25,12 +25,13 @@
  ************************************/
 enum class DataBrokerMessageTypes : uint8_t {
   INVALID = 0,
-  IMU_DATA,
+  IMU32G_DATA,
+  IMU16G_DATA,
   GPS_DATA,
-  BARO_DATA,
+  BARO07_DATA,
+  BARO11_DATA,
   FILTER_DATA,
   MAG_DATA,
-  MAG_DATA2
 };
 
 namespace DataBrokerMessageType {
@@ -45,17 +46,25 @@ std::string ToString(DataBrokerMessageTypes messageType);
 
 inline std::string ToString(DataBrokerMessageTypes messageType) {
   switch (messageType) {
-    case DataBrokerMessageTypes::IMU_DATA: {
-      std::string type{"IMU_DATA"};
+    case DataBrokerMessageTypes::IMU32G_DATA: {
+      std::string type{"IMU32G_DATA"};
       return type;
     }
+    case DataBrokerMessageTypes::IMU16G_DATA: {
+          std::string type{"IMU16G_DATA"};
+          return type;
+        }
     case DataBrokerMessageTypes::GPS_DATA: {
           std::string type{"GPS_DATA"};
           return type;
         }
-    case DataBrokerMessageTypes::BARO_DATA: {
-          std::string type{"BARO_DATA"};
+    case DataBrokerMessageTypes::BARO07_DATA: {
+          std::string type{"BARO07_DATA"};
           return type;
+        }
+    case DataBrokerMessageTypes::BARO11_DATA: {
+              std::string type{"BARO11_DATA"};
+              return type;
         }
     case DataBrokerMessageTypes::FILTER_DATA: {
           std::string type{"FILTER_DATA"};
@@ -65,10 +74,6 @@ inline std::string ToString(DataBrokerMessageTypes messageType) {
           std::string type{"MAG_DATA"};
           return type;
         }
-    case DataBrokerMessageTypes::MAG_DATA2: {
-             std::string type{"MAG_DATA2"};
-             return type;
-           }
     case DataBrokerMessageTypes::INVALID:
       [[fallthrough]];
     default: {

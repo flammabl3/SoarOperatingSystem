@@ -38,28 +38,22 @@ struct GYRO_t {
 	int16_t z;
 };
 
-struct IMUData {
+struct IMU32GData {
 	ACCEL_t accel;
 	GYRO_t gyro;
 	int16_t temp;
 };
 
-struct MAG_t {
-	int16_t x;
-	int16_t y;
-	int16_t z;
-};
-
-struct MagData2 {
-	MAG_t mag;
-	int16_t temp;
-};
 
 struct GPSData{
 	uint32_t gps;
 };
 
-struct BaroData{
+struct Baro07Data{
+	int16_t temp;
+	uint32_t pressure;
+};
+struct Baro11Data{
 	int16_t temp;
 	uint32_t pressure;
 };
@@ -68,7 +62,7 @@ struct FilterData{
 	uint32_t filter;
 };
 
-struct MagData1 {
+struct MagData {
     std::uint32_t rawX;
     std::uint32_t rawY;
     std::uint32_t rawZ;
