@@ -38,10 +38,11 @@ struct GYRO_t {
 	int16_t z;
 };
 
-struct IMU32GData {
+struct IMUData {
 	ACCEL_t accel;
 	GYRO_t gyro;
 	int16_t temp;
+	uint8_t id;
 };
 
 
@@ -49,13 +50,11 @@ struct GPSData{
 	uint32_t gps;
 };
 
-struct Baro07Data{
+
+struct BaroData{
 	int16_t temp;
 	uint32_t pressure;
-};
-struct Baro11Data{
-	int16_t temp;
-	uint32_t pressure;
+	uint8_t id;
 };
 
 struct FilterData{

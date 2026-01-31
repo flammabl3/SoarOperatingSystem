@@ -176,14 +176,11 @@ class DataBroker {
    */
   template <typename T>
   static constexpr Publisher<T>* getPublisher(void) {
-    if constexpr (matchType<T, IMU32GData>()) {
-      return &IMU32G_Data_publisher;
+    if constexpr (matchType<T, IMUData>()) {
+      return &IMU_Data_publisher;
     }
-    else if constexpr(matchType<T, Baro07Data>()){
-    	return &Baro07_Data_publisher;
-    }
-    else if constexpr(matchType<T, Baro11Data>()){
-        	return &Baro11_Data_publisher;
+    else if constexpr(matchType<T, BaroData>()){
+    	return &Baro_Data_publisher;
     }
     else if constexpr(matchType<T, MagData>()){
     	return &Mag_Data_publisher;
@@ -201,10 +198,9 @@ class DataBroker {
   }
 
   // List of Publishers
-  inline static Publisher<IMU32GData> IMU32G_Data_publisher{DataBrokerMessageTypes::IMU32G_DATA};
+  inline static Publisher<IMUData> IMU_Data_publisher{DataBrokerMessageTypes::IMU_DATA};
   inline static Publisher<MagData> Mag_Data_publisher{DataBrokerMessageTypes::MAG_DATA};
-  inline static Publisher<Baro07Data> Baro07_Data_publisher{DataBrokerMessageTypes::BARO07_DATA};
-  inline static Publisher<Baro11Data> Baro11_Data_publisher{DataBrokerMessageTypes::BARO11_DATA};
+  inline static Publisher<BaroData> Baro_Data_publisher{DataBrokerMessageTypes::BARO_DATA};
   inline static Publisher<FilterData> Filter_Data_publisher{DataBrokerMessageTypes::FILTER_DATA};
   inline static Publisher<GPSData> GPS_Data_publisher{DataBrokerMessageTypes::GPS_DATA};
 
