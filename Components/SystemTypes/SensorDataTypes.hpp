@@ -62,9 +62,9 @@ struct FilterData{
 };
 
 struct MagData {
-    std::uint32_t rawX;
-    std::uint32_t rawY;
-    std::uint32_t rawZ;
+    uint32_t rawX;
+    uint32_t rawY;
+    uint32_t rawZ;
     float scaledX;
     float scaledY;
     float scaledZ;
