@@ -45,7 +45,7 @@ std::string ToString(DataBrokerMessageTypes messageType);
 inline std::string ToString(DataBrokerMessageTypes messageType) {
   switch (messageType) {
     case DataBrokerMessageTypes::IMU_DATA: {
-      std::string type{"IMU_DATA"};
+      std::string type{"IMU32G_DATA"};
       return type;
     }
     case DataBrokerMessageTypes::GPS_DATA: {

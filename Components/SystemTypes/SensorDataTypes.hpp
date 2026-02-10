@@ -26,7 +26,23 @@
  * @param accelY The acceleration in the Y axis relative to the sensor
  * @param accelZ The acceleration in the Z axis relative to the sensor
  */
+struct ACCEL_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+};
+
+struct GYRO_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+};
+
 struct IMUData {
+	ACCEL_t accel;
+	GYRO_t gyro;
+	int16_t temp;
+	uint8_t id;
 	uint32_t gyroX;
 	uint32_t gyroY;
 	uint32_t gyroZ;
@@ -43,12 +59,16 @@ struct ThermocoupleData {
 	int32_t temperature;
 };
 
-struct GPSData {
+struct GPSData{
 	uint32_t gps;
 };
 
+
 struct BaroData {
 	uint32_t baro;
+	int16_t temp;
+	uint32_t pressure;
+	uint8_t id;
 };
 
 struct FilterData {
@@ -65,6 +85,12 @@ struct FilterData {
 };
 
 struct MagData {
+    uint32_t rawX;
+    uint32_t rawY;
+    uint32_t rawZ;
+    float scaledX;
+    float scaledY;
+    float scaledZ;
 	uint32_t magX;
 	uint32_t magY;
 	uint32_t magZ;
