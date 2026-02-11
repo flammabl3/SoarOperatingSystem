@@ -83,7 +83,7 @@ class Publisher {
         uint8_t* messsageData = reinterpret_cast<uint8_t*>(dataToPublish);
 
         // copy data to command
-        brokerData.CopyDataToCommand(messsageData, sizeof(T));
+        brokerData.CopyDataToCommandFixed(messsageData, sizeof(T));
 
         subscriber.getSubscriberQueueHandle()->Send(brokerData);
       }

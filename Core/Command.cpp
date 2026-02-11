@@ -106,11 +106,13 @@ uint8_t* Command::AllocateData(uint16_t dataSize)
     return nullptr;
 }
 
+
 /**
  * @brief Sets the internal command data pointer to the given data pointer and given size
  *        Only use this for static buffers in which the data does NOT need to be freed.
  *        This may be subject to require synchronization across different threads as the memory
  *        is not indepedent to the Command object.
+ *
  * @param existingPtr byte pointer to the data
  * @param size Size of the given data address
  * @return TRUE on success, FALSE on failure (mem already allocated)
@@ -134,6 +136,24 @@ bool Command::CopyDataToCommand(uint8_t* dataSrc, uint16_t size)
 {
     // If we successfully allocate, copy the data and return success
     if(this->AllocateData(size)
+        && this->data != nullptr) {
+        memcpy(this->data, dataSrc, size);
+        return true;
+    }
+
+    return false;
+}
+
+
+/**
+* @brief Copy data with fixed size. Used to avoid heap fragmentation
+* @param dataSize Size of array to allocate
+*/
+bool Command::CopyDataToCommandFixed(uint8_t* dataSrc, uint16_t size)
+{
+    // If we successfully allocate, copy the data and return success
+	// command should be less than 512 bytes. this is just an arbitrary number.
+    if(size < 512
         && this->data != nullptr) {
         memcpy(this->data, dataSrc, size);
         return true;

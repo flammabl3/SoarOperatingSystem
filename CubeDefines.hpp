@@ -56,7 +56,7 @@ constexpr uint16_t ASSERT_TAKE_MAX_TIME_MS = 500;        // Max time in ms to ta
 #define SOAR_ASSERT(expr, ...) ((expr) ? (void)0U : cube_assert_debug(false, (const char *)__FILE__, __LINE__, ##__VA_ARGS__))
 
 // SOAR_PRINT macro, acts as an interface to the print function which sends a packet to the UART Task to print data
-#define SOAR_PRINT(str, ...) (cube_print(str, ##__VA_ARGS__))
+#define SOAR_PRINT(str, ...)
 
 /**
  * @brief Malloc inline function, wraps malloc for multi-platform support, asserts successful allocation
