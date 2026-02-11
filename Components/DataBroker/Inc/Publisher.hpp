@@ -140,8 +140,8 @@ public:
 				uint8_t *messsageData =
 						reinterpret_cast<uint8_t*>(dataToPublish);
 
-				// copy data to command
-				brokerData.CopyDataToCommand(messsageData, sizeof(T));
+        // copy data to command
+        brokerData.CopyDataToCommandFixed(messsageData, sizeof(T));
 
 				// We should overwrite queues of length 1 rather than sending. This is NOT contractually defined anywhere and we should change it later.
 				uint8_t queueDepth =
