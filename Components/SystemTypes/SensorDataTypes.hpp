@@ -70,4 +70,29 @@ struct MagData {
     float scaledZ;
 };
 
+#define NMEA_MAX_LENGTH 82
+
+typedef struct
+{
+    int32_t    degrees_;
+    int32_t    minutes_;
+} LatLongType;
+
+typedef struct
+{
+    int32_t     altitude_;
+    char        unit_;
+} AltitudeType;
+
+typedef struct
+{
+    char            buffer_ [NMEA_MAX_LENGTH + 1];
+    uint32_t        time_;
+    LatLongType     latitude_;
+    LatLongType     longitude_;
+    AltitudeType    antennaAltitude_;
+    AltitudeType    geoidAltitude_;
+    AltitudeType    totalAltitude_;
+} GpsData;
+
 #endif /* SENSORDATATYPES_HPP_ */
