@@ -54,6 +54,7 @@ void UARTTask::InitTask()
 */
 void UARTTask::Run(void * pvParams)
 {
+
     //UART Task loop
     while(1) {
         Command cm;
@@ -79,7 +80,7 @@ void UARTTask::HandleCommand(Command& cm)
         //Switch for task specific command within DATA_COMMAND
         switch (cm.GetTaskCommand()) {
         case UART_TASK_COMMAND_SEND_DEBUG:
-            UART::Debug->Transmit(cm.GetDataPointer(), cm.GetDataSize());
+            UART::GPS->Transmit(cm.GetDataPointer(), cm.GetDataSize());
             break;
 
         default:
