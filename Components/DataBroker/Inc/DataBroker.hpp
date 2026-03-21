@@ -237,7 +237,7 @@ class DataBroker {
     else if constexpr(matchType<T, FilterData>()){
     	return &Filter_Data_publisher;
     }
-    else if constexpr(matchType<T, GpsData>()){
+    else if constexpr(matchType<T, GPSData>()){
     	return &GPS_Data_publisher;
     }
     else {
@@ -251,7 +251,7 @@ class DataBroker {
   inline static Publisher<MagData> Mag_Data_publisher{DataBrokerMessageTypes::MAG_DATA};
   inline static Publisher<BaroData> Baro_Data_publisher{DataBrokerMessageTypes::BARO_DATA};
   inline static Publisher<FilterData> Filter_Data_publisher{DataBrokerMessageTypes::FILTER_DATA};
-  inline static Publisher<GpsData> GPS_Data_publisher{DataBrokerMessageTypes::GPS_DATA};
+  inline static Publisher<GPSData> GPS_Data_publisher{DataBrokerMessageTypes::GPS_DATA};
 
 
 };

@@ -46,9 +46,7 @@ struct IMUData {
 };
 
 
-struct GPSData{
-	uint32_t gps;
-};
+
 
 
 struct BaroData{
@@ -67,14 +65,20 @@ struct FilterData{
 	uint32_t accelPredicted;
 	uint32_t timePredicted;
 };
+struct MagDriverData{
+	uint32_t rawX;
+	uint32_t rawY;
+	uint32_t rawZ;
+	int32_t scaledX;
+	int32_t scaledY;
+	int32_t scaledZ;
+};
+
 
 struct MagData {
-    uint32_t rawX;
-    uint32_t rawY;
-    uint32_t rawZ;
-    float scaledX;
-    float scaledY;
-    float scaledZ;
+    int32_t magX;
+    int32_t magY;
+    int32_t magZ;
 };
 
 #define NMEA_MAX_LENGTH 82
@@ -100,6 +104,6 @@ typedef struct
     AltitudeType    antennaAltitude_;
     AltitudeType    geoidAltitude_;
     AltitudeType    totalAltitude_;
-} GpsData;
+} GPSData;
 
 #endif /* SENSORDATATYPES_HPP_ */
