@@ -117,16 +117,22 @@ bool UARTDriver::GetRxErrors()
  */
 void UARTDriver::HandleIRQ_UART()
 {
-    // Call the callback if RXNE is set
+    // Snapshot/clear RX errors so stale flags cannot hold the IRQ active.
+    const uint8_t hadErrors = GetRxErrors();
+    if (hadErrors) {
+        HandleAndClearRxError();
+    }
+
+    // Always drain RDR when RXNE is set; reading clears RXNE.
     if (LL_USART_IsActiveFlag_RXNE(kUart_)) {
-        // Read the data from the data register
+        const uint8_t rxData = LL_USART_ReceiveData8(kUart_);
+
         if (rxCharBuf_ != nullptr) {
-            *rxCharBuf_ = LL_USART_ReceiveData8(kUart_);
+            *rxCharBuf_ = rxData;
         }
 
-        // Call the receiver interrupt
-        if(rxReceiver_ != nullptr) {
-            rxReceiver_->InterruptRxData(GetRxErrors());
+        if (rxReceiver_ != nullptr) {
+            rxReceiver_->InterruptRxData(hadErrors);
         }
     }
 }

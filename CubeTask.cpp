@@ -36,6 +36,7 @@ void CubeTask::InitTask()
 void CubeTask::Run(void * pvParams)
 {
     //UART Task loop
+
     while(1) {
         Command cm;
 

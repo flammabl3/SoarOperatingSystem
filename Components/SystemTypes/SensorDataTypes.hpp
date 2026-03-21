@@ -26,33 +26,82 @@
  * @param accelY The acceleration in the Y axis relative to the sensor
  * @param accelZ The acceleration in the Z axis relative to the sensor
  */
+struct ACCEL_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+};
+
+struct GYRO_t {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+};
+
 struct IMUData {
-  uint32_t accelX;
-  uint32_t accelY;
-  uint32_t accelZ;
+	ACCEL_t accel;
+	GYRO_t gyro;
+	int16_t temp;
+	uint8_t id;
 };
 
-/**
- * @param Temperature. Can be any where from -2147483648 to 2147483647
- */
-struct ThermocoupleData {
-  int32_t temperature;
-};
 
-struct GPSData{
-	uint32_t gps;
-};
 
 struct BaroData{
-	uint32_t baro;
+	int16_t temp;
+	uint32_t pressure;
+	uint8_t id;
 };
 
 struct FilterData{
-	uint32_t filter;
+	uint32_t alt;
+	uint32_t velo;
+	uint32_t accel;
+
+	uint32_t altPredicted;
+	uint32_t veloPredicted;
+	uint32_t accelPredicted;
+	uint32_t timePredicted;
+};
+struct MagDriverData{
+	uint32_t rawX;
+	uint32_t rawY;
+	uint32_t rawZ;
+	int32_t scaledX;
+	int32_t scaledY;
+	int32_t scaledZ;
 };
 
-struct MagData{
-	uint32_t mag;
+
+struct MagData {
+    int32_t magX;
+    int32_t magY;
+    int32_t magZ;
 };
+
+#define NMEA_MAX_LENGTH 82
+
+typedef struct
+{
+    int32_t    degrees_;
+    int32_t    minutes_;
+} LatLongType;
+
+typedef struct
+{
+    int32_t     altitude_;
+    char        unit_;
+} AltitudeType;
+
+typedef struct
+{
+    char            buffer_ [NMEA_MAX_LENGTH + 1];
+    uint32_t        time_;
+    LatLongType     latitude_;
+    LatLongType     longitude_;
+    AltitudeType    antennaAltitude_;
+    AltitudeType    geoidAltitude_;
+    AltitudeType    totalAltitude_;
+} GPSData;
 
 #endif /* SENSORDATATYPES_HPP_ */

@@ -16,6 +16,7 @@
 #include <cstdint>        // For uint32_t, etc.
 #include <cstdio>        // Standard c printf, vsnprintf, etc.
 #include "cmsis_os.h"    // CMSIS RTOS definitions
+#include "Mutex.hpp"
 
 /* Global Functions ------------------------------------------------------------------*/
 void cube_print(const char* format, ...);
