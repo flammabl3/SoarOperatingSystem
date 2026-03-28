@@ -58,6 +58,28 @@ class Publisher {
     return false;
   }
 
+  // subscribe, given Queue* queueToSubscribe to publish data to.
+  bool Subscribe(Task* taskToSubscribe, Queue* queueToSubscribe) {
+    // Check if subscriber already exists
+    for (Subscriber& subscriber : subscribersList) {
+      if (subscriber.getSubscriberTaskHandle() == taskToSubscribe) {
+        return true;
+      }
+    }
+
+    // Add the subscriber
+    for (Subscriber& subscriber : subscribersList) {
+      if (subscriber.getSubscriberTaskHandle() == nullptr) {
+        subscriber.Init(taskToSubscribe, queueToSubscribe);
+        return true;
+      }
+    }
+
+    SOAR_ASSERT(true, "Failed to add subscriber\n");
+    return false;
+  }
+
+
   // unsubscribe
   bool Unsubscribe(Task* taskToUnsubscribe) {
     for (Subscriber& subscriber : subscribersList) {
@@ -85,7 +107,12 @@ class Publisher {
         // copy data to command
         brokerData.CopyDataToCommand(messsageData, sizeof(T));
 
-        subscriber.getSubscriberQueueHandle()->Send(brokerData);
+        if (subscriber.getSubscriberQueueHandle()->GetQueueDepth() == 1) {
+        	subscriber.getSubscriberQueueHandle()->Overwrite(brokerData);
+        } else {
+            subscriber.getSubscriberQueueHandle()->Send(brokerData);
+        }
+
       }
     }
   }

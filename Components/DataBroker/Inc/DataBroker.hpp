@@ -81,6 +81,30 @@ class DataBroker {
   }
 
   /**
+   * @brief Subscribe to a certain type of data in the system
+   * @param taskToSubscribe Task Handle of the task that will receive
+   * @param queueToSubscribe pointer to the queue that will receive
+   *        the data. queueToSubscribe should be a member of taskToSubscribe.
+   */
+  template <typename T>
+  static void Subscribe(Task* taskToSubscribe, Queue* queueToSubscribe) {
+    if (subscriberListLock.Lock(SUBSCRIBER_LIST_MUTEX_TIMEOUT)) {
+      Publisher<T>* publisher = getPublisher<T>();
+      if (publisher != nullptr) {
+        publisher->Subscribe(taskToSubscribe, queueToSubscribe);
+      } else {
+        SOAR_ASSERT("Data Publisher not found \n");
+      }
+      subscriberListLock.Unlock();
+      return;
+    } else {
+      SOAR_PRINT("Could Not Subscribe to Data Broker Publisher \n");
+    }
+    return;
+  }
+
+
+  /**
    * @brief Unsubscribe to a certain type of data in the system
    * @param taskToUnsubscribe Task Handle of the task that will stop
    *        receiving the data. (i.e. -> Unsubscribe<T>(this))
@@ -188,7 +212,7 @@ class DataBroker {
     else if constexpr(matchType<T, FilterData>()){
     	return &Filter_Data_publisher;
     }
-    else if constexpr(matchType<T, GPSData>()){
+    else if constexpr(matchType<T, GpsData>()){
     	return &GPS_Data_publisher;
     }
     else {
@@ -202,7 +226,7 @@ class DataBroker {
   inline static Publisher<MagData> Mag_Data_publisher{DataBrokerMessageTypes::MAG_DATA};
   inline static Publisher<BaroData> Baro_Data_publisher{DataBrokerMessageTypes::BARO_DATA};
   inline static Publisher<FilterData> Filter_Data_publisher{DataBrokerMessageTypes::FILTER_DATA};
-  inline static Publisher<GPSData> GPS_Data_publisher{DataBrokerMessageTypes::GPS_DATA};
+  inline static Publisher<GpsData> GPS_Data_publisher{DataBrokerMessageTypes::GPS_DATA};
 
 
 };

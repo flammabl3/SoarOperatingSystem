@@ -38,6 +38,17 @@ class Subscriber {
     taskQueue = taskHandle->GetEventQueue();
   }
 
+  // If a pointer to a specified Queue is given, taskQueue will
+  // reference queueToSubscribe rather than the Task's getEventQueue();
+  void Init(Task* subscriberTaskHandle, Queue* queueToSubscribe) {
+    if (taskHandle != nullptr || taskQueue != nullptr) {
+      SOAR_ASSERT(false, "You cannot overwrite a subscriber");
+      return;
+    }
+    taskHandle = subscriberTaskHandle;
+    taskQueue = queueToSubscribe;
+  }
+
   void Delete() {
     taskHandle = nullptr;
     taskQueue = nullptr;
