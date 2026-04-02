@@ -105,6 +105,31 @@ class DataBroker {
 
 
   /**
+   * @brief Subscribe to a certain type of data in the system
+   * @param taskToSubscribe Task Handle of the task that will receive
+   * @param queueToSubscribe pointer to the queue that will receive
+   *        the data. queueToSubscribe should be a member of taskToSubscribe.
+   */
+  template <typename T>
+  static void Subscribe(Task* taskToSubscribe, Queue* queueToSubscribe, uint8_t sensorId) {
+    if (subscriberListLock.Lock(SUBSCRIBER_LIST_MUTEX_TIMEOUT)) {
+      Publisher<T>* publisher = getPublisher<T>();
+      if (publisher != nullptr) {
+        publisher->Subscribe(taskToSubscribe, queueToSubscribe, sensorId);
+      } else {
+        SOAR_ASSERT("Data Publisher not found \n");
+      }
+      subscriberListLock.Unlock();
+      return;
+    } else {
+      SOAR_PRINT("Could Not Subscribe to Data Broker Publisher \n");
+    }
+    return;
+  }
+
+
+
+  /**
    * @brief Unsubscribe to a certain type of data in the system
    * @param taskToUnsubscribe Task Handle of the task that will stop
    *        receiving the data. (i.e. -> Unsubscribe<T>(this))

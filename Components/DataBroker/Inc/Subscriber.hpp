@@ -49,18 +49,33 @@ class Subscriber {
     taskQueue = queueToSubscribe;
   }
 
+  // Filter data by ID, for data types with multiple associated sensors.
+  void Init(Task* subscriberTaskHandle, Queue* queueToSubscribe, uint8_t sensorId) {
+    if (taskHandle != nullptr || taskQueue != nullptr) {
+      SOAR_ASSERT(false, "You cannot overwrite a subscriber");
+      return;
+    }
+    taskHandle = subscriberTaskHandle;
+    taskQueue = queueToSubscribe;
+    sensorId = sensorId;
+  }
+
   void Delete() {
     taskHandle = nullptr;
     taskQueue = nullptr;
+    sensorId = -1;
   }
 
   inline const Task* getSubscriberTaskHandle() const { return taskHandle; }
 
   inline Queue* getSubscriberQueueHandle() const { return taskQueue; }
 
+  inline uint8_t getSensorId() const { return sensorId; }
+
  private:
   Task* taskHandle = nullptr;
   Queue* taskQueue = nullptr;
+  uint8_t sensorId = -1;
 };
 
 /************************************
