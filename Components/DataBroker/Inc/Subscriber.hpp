@@ -63,7 +63,7 @@ class Subscriber {
   void Delete() {
     taskHandle = nullptr;
     taskQueue = nullptr;
-    sensorId = -1;
+    sensorId = 255;
   }
 
   inline const Task* getSubscriberTaskHandle() const { return taskHandle; }
@@ -75,7 +75,7 @@ class Subscriber {
  private:
   Task* taskHandle = nullptr;
   Queue* taskQueue = nullptr;
-  uint8_t sensorId = -1;
+  uint8_t sensorId = 255;
 };
 
 /************************************

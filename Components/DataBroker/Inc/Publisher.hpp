@@ -82,6 +82,27 @@ public:
 		return false;
 	}
 
+	// subscribe
+	bool Subscribe(Task *taskToSubscribe, Queue *queueToSubscribe, uint8_t sensorId) {
+		// Check if subscriber already exists
+		for (Subscriber &subscriber : subscribersList) {
+			if (subscriber.getSubscriberTaskHandle() == taskToSubscribe) {
+				return true;
+			}
+		}
+
+		// Add the subscriber
+		for (Subscriber &subscriber : subscribersList) {
+			if (subscriber.getSubscriberTaskHandle() == nullptr) {
+				subscriber.Init(taskToSubscribe, queueToSubscribe, sensorId);
+				return true;
+			}
+		}
+
+		SOAR_ASSERT(true, "Failed to add subscriber\n");
+		return false;
+	}
+
 	// unsubscribe
 	bool Unsubscribe(Task *taskToUnsubscribe) {
 		for (Subscriber &subscriber : subscribersList) {
@@ -100,10 +121,10 @@ public:
 		for (const Subscriber &subscriber : subscribersList) {
 			if (subscriber.getSubscriberTaskHandle() != nullptr) {
 
-				// if sensorId is -1, that subscriber wants all sensor data. -1 is the default value.
-				if (subscriber.getSensorId() != -1) {
+				// if sensorId is 255, that subscriber wants all sensor data. 255 is the default value.
+				if (subscriber.getSensorId() != 255) {
 					if constexpr (std::is_same_v<T, IMUData> || std::is_same_v<T, BaroData>) {
-						// if not -1, the subscriber only wants data from one sensor. If the id does not match, continue without publishing.
+						// if not 255, the subscriber only wants data from one sensor. If the id does not match, continue without publishing.
 						if (dataToPublish->id != subscriber.getSensorId()) {
 							continue;
 						}
