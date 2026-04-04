@@ -46,7 +46,9 @@ struct IMUData {
 };
 
 
-
+struct GPSData{
+	uint32_t gps;
+};
 
 
 struct BaroData{
