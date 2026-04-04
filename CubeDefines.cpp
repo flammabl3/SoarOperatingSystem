@@ -45,7 +45,7 @@ void cube_print(const char* str, ...)
         Command cmd(DATA_COMMAND, (uint16_t)CUBE_TASK_COMMAND_SEND_DEBUG); // Set the UART channel to send data on
 
         //Copy data into the command
-        cmd.CopyDataToCommand(str_buffer, buflen);
+        cmd.CopyDataToCommandFixed(str_buffer, buflen);
 
         //Send this packet off to the UART Task
         CubeTask::Inst().GetEventQueue()->Send(cmd, false);
