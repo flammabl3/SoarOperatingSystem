@@ -11,7 +11,7 @@
  *
  ******************************************************************************
 */
-#include "Core/Inc/Command.hpp"
+#include "Command.hpp"
 
 #include "CubeDefines.hpp"
 #include "SystemDefines.hpp"

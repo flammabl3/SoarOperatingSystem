@@ -4,7 +4,7 @@
  * Description        : Implementation of the Queue class
  ******************************************************************************
 */
-#include <Core/Inc/Command.hpp>
+#include <Command.hpp>
 #include <Core/Inc/Queue.hpp>
 
 #include "SystemDefines.hpp"
