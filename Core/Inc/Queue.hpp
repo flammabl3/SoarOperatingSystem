@@ -38,6 +38,8 @@ public:
 
     bool SendToFront(Command& command);
 
+    bool Overwrite(Command& command);
+
     bool Receive(Command& cm, uint32_t timeout_ms = 0);
     bool ReceiveWait(Command& cm); //Blocks until a command is received
 

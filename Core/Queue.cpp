@@ -87,6 +87,22 @@ bool Queue::Send(Command& command, bool reportFull)
 }
 
 /**
+ * @brief Sends a command object to the back of queue, Even if it is full. Intended for Queues of length 0.
+ * @param command Command object reference to send
+ * @return true on success, false on failure
+*/
+bool Queue::Overwrite(Command& command)
+{
+    if (xQueueOverwrite(rtQueueHandle, &command) == pdPASS)
+        return true;
+
+    command.Reset();
+
+    return false;
+}
+
+
+/**
  * @brief Polls queue with specific timeout, blocks for timeout_ms, returns null on no data
  * @param timeout_ms Time to block for
  * @param cm Command object to copy received data into
