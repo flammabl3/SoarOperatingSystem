@@ -5,7 +5,7 @@
  ******************************************************************************
 */
 
-#include <Core/Inc/Mutex.hpp>
+#include <Mutex.hpp>
 #include <CubeUtils.hpp>
 
 #include "SystemDefines.hpp"

@@ -4,7 +4,7 @@
  * Description        : Task contains the core component base class for all tasks.
  ******************************************************************************
 */
-#include <Core/Inc/Task.hpp>
+#include <Task.hpp>
 
 /**
  * @brief Default constructor, instantiates event queue with default size
